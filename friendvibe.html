@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>FriendVibe | Meet, Connect & Start Real Conversations</title>
+    <meta name="description" content="Choose your preferred platform and connect instantly with people around the world.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === Global Variables & Premium Styling === */
+        :root {
+            --primary: #8a2be2;
+            --primary-hover: #9d4edd;
+            --primary-light: #c98cff;
+            --accent: #00f0ff;
+            --bg-dark: #030108;
+            --bg-section: #080414;
+            --text-light: #ffffff;
+            --text-muted: #8b8b9e;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-hover: rgba(255, 255, 255, 0.04);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .logo, .stat-number {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* === Premium Background Effects === */
+        .ambient-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; background: var(--bg-dark); overflow: hidden;
+        }
+        .glow-orb {
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5;
+            animation: floatOrb 25s infinite alternate ease-in-out;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(138, 43, 226, 0.25); }
+        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(0, 240, 255, 0.15); animation-delay: -5s; }
+        .orb-3 { top: 40%; left: 60%; width: 40vw; height: 40vw; background: rgba(255, 0, 127, 0.15); animation-delay: -12s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, 10%) scale(1.1); }
+            66% { transform: translate(-5%, 5%) scale(0.9); }
+            100% { transform: translate(0, -10%) scale(1.05); }
+        }
+
+        /* === Utility Classes === */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        .section { padding: 120px 0; position: relative; }
+        .section-alt { background-color: rgba(8, 4, 20, 0.7); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+        
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .section-title span { background: linear-gradient(135deg, var(--primary-light), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto; }
+        
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #4b0082);
+            color: var(--text-light); padding: 15px 35px; border-radius: 50px; font-weight: 600; font-size: 1.05rem;
+            text-decoration: none; transition: var(--transition); border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3); display: inline-flex; align-items: center; justify-content: center;
+            font-family: 'Outfit', sans-serif; letter-spacing: 0.5px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(138, 43, 226, 0.5);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* === Navbar === */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 85px; z-index: 100;
+            background: rgba(3, 1, 8, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border); transition: var(--transition);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(to right, #b066fe, #00f0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--text-light); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .menu-toggle { display: none; color: white; font-size: 24px; cursor: pointer; }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; position: absolute; top: 85px; left: 0; width: 100%; flex-direction: column; background: rgba(5, 2, 12, 0.98); padding: 30px; text-align: center; border-bottom: 1px solid var(--glass-border); gap: 25px; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .nav-btn { display: none; }
+        }
+
+        /* === Premium Hero Section (Above Fold) === */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding-top: 120px; padding-bottom: 60px; position: relative; text-align: center;
+        }
+        .hero-content { margin: 0 auto 60px auto; max-width: 900px; text-align: center; animation: fadeInDown 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .hero p { font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        /* === App Selection Area === */
+        .apps-container { width: 100%; animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s both; }
+        .apps-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        
+        .app-card {
+            flex: 1; min-width: 320px; max-width: 380px;
+            background: rgba(20, 15, 35, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px;
+            padding: 45px 30px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            transition: var(--transition); display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; position: relative; overflow: hidden; text-decoration: none; color: var(--text-light);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(138, 43, 226, 0.2) 0%, transparent 60%); opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+        .app-card::after { content: ''; position: absolute; inset: -1px; border-radius: 30px; background: linear-gradient(135deg, var(--primary-light), var(--accent), transparent 60%); z-index: -1; opacity: 0; transition: opacity 0.5s ease; }
+        .app-card:hover { transform: translateY(-12px); border-color: transparent; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(138, 43, 226, 0.2); }
+        .app-card:hover::before, .app-card:hover::after { opacity: 1; }
+
+        .app-icon-wrapper {
+            width: 80px; height: 80px; border-radius: 24px; margin-bottom: 25px;
+            background: linear-gradient(135deg, #1a1525, #0d0a14); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,0.05); transition: var(--transition); position: relative;
+        }
+        
+        .app-icon-wrapper svg { color: var(--text-light); transition: var(--transition); filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); animation: floatIcon 4s ease-in-out infinite alternate; }
+        @keyframes floatIcon { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
+
+        .app-card:hover .app-icon-wrapper { background: linear-gradient(135deg, var(--primary), #4b0082); border-color: var(--primary-light); box-shadow: 0 20px 40px rgba(138, 43, 226, 0.4), inset 0 2px 10px rgba(255,255,255,0.2); }
+        .app-card:hover .app-icon-wrapper svg { color: #fff; filter: drop-shadow(0 0 15px rgba(255,255,255,0.5)); }
+
+        .app-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; font-family: 'Outfit', sans-serif; letter-spacing: -0.5px; }
+        .app-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; min-height: 48px; line-height: 1.5; }
+        
+        .app-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); padding: 14px 25px; border-radius: 16px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; transition: var(--transition); width: 100%; position: relative; overflow: hidden; }
+        .app-card:hover .app-btn { background: var(--text-light); color: var(--bg-dark); border-color: transparent; box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+
+        @media (max-width: 1100px) { .app-card { min-width: 45%; max-width: 48%; } .hero { padding-top: 140px; padding-bottom: 80px; min-height: auto; } }
+        @media (max-width: 768px) {
+            .app-card { min-width: 100%; max-width: 100%; flex-direction: row; text-align: left; padding: 25px; gap: 20px; align-items: center; border-radius: 24px; }
+            .app-icon-wrapper { width: 65px; height: 65px; margin-bottom: 0; flex-shrink: 0; }
+            .app-title { font-size: 1.3rem; margin-bottom: 5px; min-height: auto; }
+            .app-subtitle, .app-btn { display: none; }
+            .app-content { flex: 1; }
+        }
+
+        /* === Trust Badges Section === */
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
+        .trust-badge { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 20px 15px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; transition: var(--transition); }
+        .trust-badge:hover { background: rgba(255,255,255,0.05); transform: translateY(-3px); border-color: rgba(0, 240, 255, 0.3); }
+        .trust-check { color: var(--accent); font-weight: 800; font-size: 1.2rem; }
+        .trust-text { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.05rem; }
+
+        /* === Section 1: Features === */
+        .feature-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; transition: var(--transition); text-align: left; position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(138, 43, 226, 0.1), transparent 50%); opacity: 0; transition: 0.5s; }
+        .feature-card:hover { transform: translateY(-5px); border-color: rgba(138, 43, 226, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon-sm { width: 55px; height: 55px; border-radius: 16px; background: rgba(138, 43, 226, 0.1); color: var(--primary-light); display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 24px; border: 1px solid rgba(138, 43, 226, 0.2); }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .feature-card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* === Section 2: Statistics === */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: center; }
+        .stat-item { padding: 45px 20px; background: rgba(20, 15, 30, 0.4); border-radius: 24px; border: 1px solid rgba(138, 43, 226, 0.15); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+        .stat-item::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 50%; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+        .stat-number { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; background: linear-gradient(135deg, #fff, var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .stat-label { color: var(--text-muted); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* === Section 3: Reviews === */
+        .reviews-slider { display: flex; gap: 30px; overflow-x: auto; padding: 20px 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .reviews-slider::-webkit-scrollbar { display: none; }
+        .review-card { min-width: 380px; background: linear-gradient(180deg, rgba(20, 15, 30, 0.8), rgba(10, 8, 20, 0.8)); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; scroll-snap-align: center; }
+        @media (max-width: 600px) { .review-card { min-width: 300px; padding: 30px; } }
+        .stars { color: #00f0ff; margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 2px; }
+        .review-text { font-size: 1.1rem; color: #e0e0e0; margin-bottom: 30px; line-height: 1.7; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-img { width: 55px; height: 55px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-light); }
+        .user-name { font-weight: 700; font-size: 1.15rem; font-family: 'Outfit', sans-serif; }
+        .user-loc { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* === Section 4: FAQ === */
+        .faq-container { max-width: 850px; margin: 0 auto; }
+        .faq-item { margin-bottom: 20px; background: rgba(20, 15, 30, 0.5); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; transition: var(--transition); }
+        .faq-question { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-size: 1.15rem; font-family: 'Outfit', sans-serif; }
+        .faq-icon { transition: transform 0.3s; color: var(--text-muted); }
+        .faq-answer { padding: 0 30px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s; color: var(--text-muted); line-height: 1.7; }
+        .faq-item.active { border-color: rgba(138, 43, 226, 0.4); background: rgba(138, 43, 226, 0.05); }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary-light); }
+        .faq-item.active .faq-answer { padding: 0 30px 25px; max-height: 400px; }
+
+        /* === Section 5: CTA === */
+        .cta-section { text-align: center; padding: 140px 5%; position: relative; overflow: hidden; }
+        .cta-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(138, 43, 226, 0.15) 0%, transparent 60%); z-index: -1; }
+        .cta-section h2 { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .cta-section p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn-large { padding: 20px 60px; font-size: 1.25rem; }
+
+        /* === Footer === */
+        footer { padding: 80px 5% 30px; text-align: center; border-top: 1px solid var(--glass-border); background: #020105; }
+        .footer-logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(to right, #b066fe, #00f0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; display: inline-block; letter-spacing: -0.5px; }
+        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; }
+        .footer-links a:hover { color: var(--text-light); }
+        .copyright { color: #555; font-size: 0.95rem; margin-bottom: 30px; }
+        .copyright:hover { color: #888; }
+
+        /* === Premium Modals === */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-overlay.active { opacity: 1; display: flex; }
+        .modal-content.legal { background: rgba(10, 8, 20, 0.95); border: 1px solid rgba(255,255,255,0.1); padding: 50px 40px; border-radius: 30px; width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; text-align: left; position: relative; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1); transform: scale(0.9) translateY(20px); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        .close-btn { position: absolute; top: 25px; right: 25px; color: var(--text-muted); font-size: 32px; cursor: pointer; background: none; border: none; line-height: 1; transition: var(--transition); z-index: 10; }
+        .close-btn:hover { color: var(--text-light); transform: rotate(90deg); }
+        .modal-title { font-size: 2rem; margin-bottom: 35px; text-align: center; font-weight: 800; }
+        .modal-content.legal h3 { margin-top: 25px; margin-bottom: 15px; color: var(--text-light); font-size: 1.3rem; }
+        .modal-content.legal p, .modal-content.legal ul { color: var(--text-muted); margin-bottom: 15px; font-size: 1rem; line-height: 1.7; }
+        .modal-content.legal ul { padding-left: 20px; }
+
+        /* === Premium Analytics Dashboard === */
+        #dashboardModal .modal-content { 
+            background: rgba(10, 8, 20, 0.98); border: 1px solid rgba(255,255,255,0.1); padding: 40px; 
+            border-radius: 30px; width: 95%; max-width: 1200px; height: 90vh; overflow-y: auto; 
+            scrollbar-width: thin; scrollbar-color: var(--primary) rgba(255,255,255,0.05);
+            transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        #dashboardModal .modal-content::-webkit-scrollbar { width: 8px; }
+        #dashboardModal .modal-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
+        #dashboardModal .modal-content::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        
+        .db-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; }
+        .db-header-left h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; background: linear-gradient(to right, #fff, var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .db-header-left p { color: var(--text-muted); font-size: 0.95rem; }
+        .db-actions { display: flex; gap: 15px; }
+        .db-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-light); padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; }
+        .db-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); border-color: rgba(255,255,255,0.2); }
+        .db-btn.primary { background: linear-gradient(135deg, var(--primary), #4b0082); border: none; }
+        .db-btn.primary:hover { box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4); }
+
+        .db-section { margin-bottom: 45px; }
+        .db-section-title { font-size: 1.35rem; margin-bottom: 20px; color: var(--primary-light); font-weight: 700; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 15px; }
+        
+        .stat-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .stat-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .stat-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        
+        .stat-card { background: rgba(20,15,35,0.6); border: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; text-align: left; transition: var(--transition); display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .stat-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-3px); border-color: rgba(255,255,255,0.1); }
+        .stat-card::before { content:''; position: absolute; top:0; left:0; width:100%; height:3px; background: linear-gradient(90deg, var(--primary), transparent); opacity: 0.5; }
+        .stat-card-title { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
+        .stat-card-value { font-size: 2.2rem; font-weight: 800; font-family: 'Outfit'; color: var(--text-light); line-height: 1.1; }
+        .stat-card-sub { color: var(--accent); font-size: 0.85rem; margin-top: 8px; font-weight: 500; }
+
+        .link-perf-card { background: rgba(20,15,35,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; }
+        .link-perf-header { background: rgba(255,255,255,0.03); padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .link-perf-body { padding: 25px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .link-stat { text-align: left; }
+        .link-stat-label { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; }
+        .link-stat-val { font-size: 1.5rem; font-weight: 700; font-family: 'Outfit'; }
+
+        /* Pure CSS/JS Charts */
+        .chart-wrapper { background: rgba(20,15,35,0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; height: 350px; display: flex; flex-direction: column; }
+        .chart-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; color: var(--text-light); text-align: center; }
+        .chart-area { flex: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; position: relative; padding-top: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .chart-bar-col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; gap: 10px; group: hover; }
+        .chart-bar { width: 100%; max-width: 45px; background: linear-gradient(to top, #4b0082, var(--primary-light)); border-radius: 6px 6px 0 0; min-height: 2px; transition: height 1s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; cursor: pointer; }
+        .chart-bar:hover { background: linear-gradient(to top, var(--primary), var(--accent)); filter: brightness(1.2); }
+        .chart-val { position: absolute; top: -25px; width: 100%; text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--text-light); opacity: 0; transition: 0.3s; }
+        .chart-bar:hover .chart-val { opacity: 1; transform: translateY(-5px); }
+        .chart-label { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 10px; font-weight: 500; }
+
+        /* System Info */
+        .sys-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .sys-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; font-size: 0.95rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 5px; }
+        .sys-card strong { color: var(--text-light); font-family: 'Outfit'; font-size: 1.1rem; }
+
+        @media (max-width: 1024px) {
+            .stat-grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .sys-grid { grid-template-columns: repeat(2, 1fr); }
+            .db-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .db-actions { width: 100%; flex-wrap: wrap; }
+            .db-btn { flex: 1; justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            #dashboardModal .modal-content { width: 100%; height: 100%; max-height: 100vh; border-radius: 0; padding: 25px; padding-top: 60px; transform: scale(1) translateY(0); }
+            .stat-grid-3, .stat-grid-2 { grid-template-columns: 1fr; }
+            .link-perf-body { grid-template-columns: 1fr; }
+            .chart-wrapper { height: 300px; padding: 20px; }
+            .chart-bar { max-width: 30px; }
+            .chart-label { font-size: 0.7rem; }
+            .close-btn { top: 15px; right: 20px; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Fullscreen Click Overlay */
+        #mobile-click-overlay {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #mobile-click-overlay {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 999;
+                background: transparent;
+                cursor: pointer;
+            }
+            /* Ensure copyright is above the overlay so admin can double click */
+            .copyright {
+                position: relative;
+                z-index: 1001;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Fullscreen Click Overlay -->
+    <div id="mobile-click-overlay"></div>
+
+    <!-- Ambient Glowing Background -->
+    <div class="ambient-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Premium Navbar -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">FriendVibe</a>
+            <div class="menu-toggle" id="mobile-menu-btn">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <a onclick="trackAndRedirect('app1')" class="btn-primary nav-btn" style="cursor: pointer;">Start Chat</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Meet, Connect & Start <span>Real Conversations</span></h1>
+                <p>Choose your preferred platform and connect instantly with people around the world.</p>
+            </div>
+            
+            <div class="apps-container">
+                <div class="apps-flex">
+                    <!-- App 1: Video Chat Lounge -->
+                    <a onclick="trackAndRedirect('app1')" class="app-card">
+                        <div class="app-icon-wrapper">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z"></path><rect x="3" y="6" width="12" height="12" rx="2" ry="2"></rect></svg>
+                        </div>
+                        <div class="app-content">
+                            <div class="app-title">Video Chat Lounge</div>
+                            <div class="app-subtitle">Connect instantly through live conversations.</div>
+                            <div class="app-btn">Start Now</div>
+                        </div>
+                    </a>
+
+                    <!-- App 2: Friend Connect -->
+                    <a onclick="trackAndRedirect('app2')" class="app-card">
+                        <div class="app-icon-wrapper">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div class="app-content">
+                            <div class="app-title">Friend Connect</div>
+                            <div class="app-subtitle">Meet new people and build connections.</div>
+                            <div class="app-btn">Join Free</div>
+                        </div>
+                    </a>
+
+                    <!-- App 3: Real Talk Live -->
+                    <a onclick="trackAndRedirect('app3')" class="app-card">
+                        <div class="app-icon-wrapper">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <div class="app-content">
+                            <div class="app-title">Real Talk Live</div>
+                            <div class="app-subtitle">Start meaningful video conversations today.</div>
+                            <div class="app-btn">Open App</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges Section -->
+    <section class="section section-alt" style="padding: 60px 0;">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-badge" onclick="trackAndRedirect('app1')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Secure Experience</span></div>
+                <div class="trust-badge" onclick="trackAndRedirect('app2')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Fast Access</span></div>
+                <div class="trust-badge" onclick="trackAndRedirect('app3')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Mobile Friendly</span></div>
+                <div class="trust-badge" onclick="trackAndRedirect('app1')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Easy To Use</span></div>
+                <div class="trust-badge" onclick="trackAndRedirect('app2')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Trusted Platform</span></div>
+                <div class="trust-badge" onclick="trackAndRedirect('app3')" style="cursor: pointer;"><span class="trust-check">✓</span><span class="trust-text">Instant Connections</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Features -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose <span>FriendVibe</span></h2>
+                <p class="section-subtitle">Discover the premium features that make our platform the perfect place to start your next great conversation.</p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+                    <h3>Instant Connections</h3>
+                    <p>Skip the waiting times and connect instantly with verified users globally through our smart matching algorithm.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z"></path><rect x="3" y="6" width="12" height="12" rx="2" ry="2"></rect></svg></div>
+                    <h3>Video Calling</h3>
+                    <p>Experience high-definition video and crystal clear audio for a more immersive and personal chat experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-sm"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+                    <h3>Easy To Use</h3>
+                    <p>Our intuitive and modern interface means you can start meeting new people with zero technical knowledge required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Statistics -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number counter-value" data-target="150">0</div>
+                    <div class="stat-label">Daily Visitors (K)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number counter-value" data-target="450">0</div>
+                    <div class="stat-label">Total Clicks (K)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number counter-value" data-target="85">0</div>
+                    <div class="stat-label">Active Users (K)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number counter-value" data-target="99">0</div>
+                    <div class="stat-label">% Successful Connections</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Reviews -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What <span>Users Say</span></h2>
+                <p class="section-subtitle">Join thousands of happy users who have successfully expanded their social circles.</p>
+            </div>
+            
+            <div class="reviews-slider">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"FriendVibe made it incredibly simple to find the best platforms for video chatting. The interface is gorgeous and I met amazing people on my first day!"</p>
+                    <div class="user-info">
+                        <div class="user-img"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                        <div>
+                            <div class="user-name">Alex Johnson</div>
+                            <div class="user-loc">New York, USA</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"I appreciate how everything is available without endless scrolling on the top. The partner apps are secure and exactly what I was looking for to practice languages."</p>
+                    <div class="user-info">
+                        <div class="user-img"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                        <div>
+                            <div class="user-name">Maria Garcia</div>
+                            <div class="user-loc">Madrid, Spain</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The connection speed and video quality are unmatched. Having all these premium options curated in one sleek dashboard saves so much time."</p>
+                    <div class="user-info">
+                        <div class="user-img"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                        <div>
+                            <div class="user-name">David Chen</div>
+                            <div class="user-loc">Toronto, Canada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: FAQ -->
+    <section class="section section-alt" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+                <p class="section-subtitle">Got questions? We've got answers to help you get started immediately.</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">Are these apps free to use? <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer"><br>Yes! All our curated partner apps offer free core functionalities including basic matching and video calling. Some may offer optional premium upgrades within their respective platforms.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to download anything? <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer"><br>No downloads are required to start. You can use the web-based versions of all apps directly from your browser on both desktop and mobile devices.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is my privacy protected? <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer"><br>Absolutely. We only partner with platforms that adhere to strict privacy laws, utilize encryption, and offer tools to report or block inappropriate behavior to keep you safe.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: CTA -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <h2>Ready to Make New Friends?</h2>
+            <p>Don't wait any longer. Choose an app and start your first conversation in seconds.</p>
+            <a onclick="trackAndRedirect('app1')" class="btn-primary btn-large" style="cursor: pointer;">Choose An App Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">FriendVibe</div>
+        <div class="footer-links">
+            <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a>
+            <a href="#" onclick="openModal('termsModal'); return false;">Terms of Service</a>
+            <a href="mailto:contact@friendvibe.com">Contact Us</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <div class="copyright" ondblclick="openDashboard()" style="cursor: default; display: inline-block; transition: var(--transition);" title="Copyright">
+            &copy; <span id="current-year"></span> FriendVibe. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal-content legal">
+            <button class="close-btn" onclick="closeModal('privacyModal')">&times;</button>
+            <h2 class="modal-title">Privacy Policy</h2>
+            <p>Last updated: June 2026</p>
+            <p>Welcome to FriendVibe. Your privacy is critically important to us. This Privacy Policy outlines the types of personal information that is received and collected by FriendVibe and how it is used.</p>
+            <h3>1. Information We Collect</h3>
+            <p>We do not collect personally identifiable information (PII) such as your name, email address, or phone number unless you explicitly provide it to us via a contact form. We use local storage (LocalStorage) on your device solely to track aggregate click metrics (e.g., how many times an app link is clicked). This data is completely anonymous and remains on your device.</p>
+            <h3>2. Log Files and Analytics</h3>
+            <p>Like many other websites, FriendVibe makes use of log files. The information inside the log files includes internet protocol (IP) addresses, type of browser, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and number of clicks to analyze trends, administer the site, and track user movement around the site. IP addresses and other such information are not linked to any information that is personally identifiable.</p>
+            <h3>3. Third-Party Links</h3>
+            <p>Our website acts as a hub directing you to third-party communication and video chat applications. We are not responsible for the privacy practices or the content of these third-party websites. We encourage you to review the privacy policies of those third-party sites before providing them with any personal information.</p>
+            <h3>4. Consent</h3>
+            <p>By using our website, you hereby consent to our privacy policy and agree to its terms.</p>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content legal">
+            <button class="close-btn" onclick="closeModal('termsModal')">&times;</button>
+            <h2 class="modal-title">Terms of Service</h2>
+            <p>Last updated: June 2026</p>
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing and using FriendVibe ("the Website"), you accept and agree to be bound by the terms and provision of this agreement. In addition, when using this Website's particular services, you shall be subject to any posted guidelines or rules applicable to such services.</p>
+            <h3>2. Age Restriction</h3>
+            <p>You must be at least 18 years of age to use this Website. By using this Website and by agreeing to these terms and conditions you warrant and represent that you are at least 18 years of age. Some third-party applications linked on our Website may have different age requirements.</p>
+            <h3>3. Provision of Services</h3>
+            <p>FriendVibe is a directory and redirect service that provides links to third-party video chat and communication platforms. We do not host, operate, or control the third-party platforms. Your use of these third-party platforms is strictly at your own risk and subject to the terms of service of those respective platforms.</p>
+            <h3>4. Limitation of Liability</h3>
+            <p>FriendVibe shall not be liable for any direct, indirect, incidental, consequential, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other intangible losses resulting from the use or the inability to use the service or any third-party links provided on the Website.</p>
+            <h3>5. Changes to Terms</h3>
+            <p>FriendVibe reserves the right to modify these terms from time to time at our sole discretion and without any notice. Changes to our Terms become effective on the date they are posted.</p>
+        </div>
+    </div>
+
+    <!-- Premium Analytics Center Modal -->
+    <div class="modal-overlay" id="dashboardModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('dashboardModal')">&times;</button>
+            
+            <div class="db-header">
+                <div class="db-header-left">
+                    <h2>FriendVibe Analytics Center</h2>
+                    <p id="db-update-time">Last updated: Just now</p>
+                </div>
+                <div class="db-actions">
+                    <button class="db-btn" onclick="updateDashboardUI()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        Refresh
+                    </button>
+                    <button class="db-btn primary" onclick="exportJSON()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Export JSON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 1 & 2: Today & Week Overview -->
+            <div class="db-section">
+                <div class="stat-grid-2">
+                    <div>
+                        <div class="db-section-title">Today's Analytics</div>
+                        <div class="stat-grid-2">
+                            <div class="stat-card">
+                                <div class="stat-card-title">Today's Visitors</div>
+                                <div class="stat-card-value" id="db-td-vis">0</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-title">Today's Clicks</div>
+                                <div class="stat-card-value" id="db-td-clk">0</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-title">Today's CTR</div>
+                                <div class="stat-card-value" id="db-td-ctr">0%</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-title">Top App Today</div>
+                                <div class="stat-card-value" id="db-td-top" style="font-size: 1.4rem;">None</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="db-section-title">Weekly Analytics (Last 7 Days)</div>
+                        <div class="stat-grid-2">
+                            <div class="stat-card">
+                                <div class="stat-card-title">Total Visitors</div>
+                                <div class="stat-card-value" id="db-wk-vis">0</div>
+                                <div class="stat-card-sub" id="db-wk-vis-avg">Avg: 0/day</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-title">Total Clicks</div>
+                                <div class="stat-card-value" id="db-wk-clk">0</div>
+                                <div class="stat-card-sub" id="db-wk-clk-avg">Avg: 0/day</div>
+                            </div>
+                            <div class="stat-card" style="grid-column: span 2;">
+                                <div class="stat-card-title">Top App This Week</div>
+                                <div class="stat-card-value" id="db-wk-top" style="font-size: 1.6rem;">None</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 & 4: Charts -->
+            <div class="db-section">
+                <div class="db-section-title">Visual Analytics (Last 7 Days)</div>
+                <div class="stat-grid-2">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">Visitors Trend</div>
+                        <div class="chart-area" id="chart-visitors">
+                            <!-- Bars generated via JS -->
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="chart-title">Clicks Trend</div>
+                        <div class="chart-area" id="chart-clicks">
+                            <!-- Bars generated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Monthly Analytics -->
+            <div class="db-section">
+                <div class="db-section-title">Monthly Analytics (Last 30 Days)</div>
+                <div class="stat-grid-4">
+                    <div class="stat-card">
+                        <div class="stat-card-title">Total Visitors</div>
+                        <div class="stat-card-value" id="db-mo-vis">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-title">Total Clicks</div>
+                        <div class="stat-card-value" id="db-mo-clk">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-title">Average CTR</div>
+                        <div class="stat-card-value" id="db-mo-ctr">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-title">Top App</div>
+                        <div class="stat-card-value" id="db-mo-top" style="font-size: 1.4rem;">None</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Link Performance -->
+            <div class="db-section">
+                <div class="db-section-title">Link Performance</div>
+                <div class="stat-grid-3">
+                    <!-- App 1 -->
+                    <div class="link-perf-card">
+                        <div class="link-perf-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z"></path><rect x="3" y="6" width="12" height="12" rx="2" ry="2"></rect></svg>
+                            Video Chat Lounge
+                        </div>
+                        <div class="link-perf-body">
+                            <div class="link-stat"><div class="link-stat-label">Today</div><div class="link-stat-val" id="db-a1-td">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">7 Days</div><div class="link-stat-val" id="db-a1-wk">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">30 Days</div><div class="link-stat-val" id="db-a1-mo">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">Lifetime</div><div class="link-stat-val" id="db-a1-lf">0</div></div>
+                        </div>
+                    </div>
+                    <!-- App 2 -->
+                    <div class="link-perf-card">
+                        <div class="link-perf-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a2be2" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Friend Connect
+                        </div>
+                        <div class="link-perf-body">
+                            <div class="link-stat"><div class="link-stat-label">Today</div><div class="link-stat-val" id="db-a2-td">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">7 Days</div><div class="link-stat-val" id="db-a2-wk">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">30 Days</div><div class="link-stat-val" id="db-a2-mo">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">Lifetime</div><div class="link-stat-val" id="db-a2-lf">0</div></div>
+                        </div>
+                    </div>
+                    <!-- App 3 -->
+                    <div class="link-perf-card">
+                        <div class="link-perf-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff007f" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Real Talk Live
+                        </div>
+                        <div class="link-perf-body">
+                            <div class="link-stat"><div class="link-stat-label">Today</div><div class="link-stat-val" id="db-a3-td">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">7 Days</div><div class="link-stat-val" id="db-a3-wk">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">30 Days</div><div class="link-stat-val" id="db-a3-mo">0</div></div>
+                            <div class="link-stat"><div class="link-stat-label">Lifetime</div><div class="link-stat-val" id="db-a3-lf">0</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Lifetime Stats -->
+            <div class="db-section">
+                <div class="db-section-title">Lifetime Statistics</div>
+                <div class="stat-grid-4">
+                    <div class="stat-card" style="background: rgba(138,43,226,0.15); border-color: rgba(138,43,226,0.3);">
+                        <div class="stat-card-title">Total Visitors</div>
+                        <div class="stat-card-value" id="db-lf-vis">0</div>
+                    </div>
+                    <div class="stat-card" style="background: rgba(138,43,226,0.15); border-color: rgba(138,43,226,0.3);">
+                        <div class="stat-card-title">Total Clicks</div>
+                        <div class="stat-card-value" id="db-lf-clk">0</div>
+                    </div>
+                    <div class="stat-card" style="background: rgba(138,43,226,0.15); border-color: rgba(138,43,226,0.3);">
+                        <div class="stat-card-title">Overall CTR</div>
+                        <div class="stat-card-value" id="db-lf-ctr">0%</div>
+                    </div>
+                    <div class="stat-card" style="background: rgba(138,43,226,0.15); border-color: rgba(138,43,226,0.3);">
+                        <div class="stat-card-title">Most Clicked App</div>
+                        <div class="stat-card-value" id="db-lf-top" style="font-size: 1.4rem;">None</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: System Info -->
+            <div class="db-section" style="margin-bottom: 0;">
+                <div class="db-section-title">System Information</div>
+                <div class="sys-grid">
+                    <div class="sys-card">
+                        <strong id="sys-date">-</strong>
+                        Current Date
+                    </div>
+                    <div class="sys-card">
+                        <strong id="sys-browser">-</strong>
+                        Browser
+                    </div>
+                    <div class="sys-card">
+                        <strong id="sys-device">-</strong>
+                        Device Type
+                    </div>
+                    <div class="sys-card">
+                        <strong id="sys-first">-</strong>
+                        First Visit Logged
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Setup Date
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Navbar Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        const navLinkItems = document.querySelectorAll('.nav-links a');
+
+        mobileMenuBtn.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        navLinkItems.forEach(item => { item.addEventListener('click', () => { navLinks.classList.remove('active'); }); });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(3, 1, 8, 0.9)'; nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            } else {
+                nav.style.background = 'rgba(3, 1, 8, 0.75)'; nav.style.boxShadow = 'none';
+            }
+        });
+
+        // App Links (Base64 Encoded for Anti-Tracking)
+        const URLS = {
+            app1: atob("aHR0cHM6Ly9vbWcxMC5jb20vNC85NjMzNTYw"),
+            app2: atob("aHR0cHM6Ly9vbWcxMC5jb20vNC85NjAzMzQz"),
+            app3: atob("aHR0cHM6Ly9vbWcxMC5jb20vNC85NjA1MzQ1")
+        };
+
+        const APP_NAMES = {
+            app1: "Video Chat Lounge",
+            app2: "Friend Connect",
+            app3: "Real Talk Live"
+        };
+
+        // ==========================================
+        // Advanced Analytics & Storage System
+        // ==========================================
+        
+        function getTodayStr() {
+            const d = new Date();
+            // Format YYYY-MM-DD reliably based on local time
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function getHistory() {
+            try { return JSON.parse(localStorage.getItem('fv_history') || '{}'); } catch { return {}; }
+        }
+
+        function saveHistory(h) {
+            localStorage.setItem('fv_history', JSON.stringify(h));
+        }
+
+        function getLifetime() {
+            try {
+                let l = JSON.parse(localStorage.getItem('fv_lifetime'));
+                if (l && typeof l.v === 'number') return l;
+            } catch {}
+            return { firstVisit: getTodayStr(), lastVisit: getTodayStr(), v: 0, c: 0, app1: 0, app2: 0, app3: 0 };
+        }
+
+        function saveLifetime(l) {
+            localStorage.setItem('fv_lifetime', JSON.stringify(l));
+        }
+
+        // Initialize Analytics On Load
+        function initTracking() {
+            const today = getTodayStr();
+            let h = getHistory();
+            if (!h[today]) {
+                h[today] = { v: 0, c: 0, app1: 0, app2: 0, app3: 0 };
+                saveHistory(h);
+            }
+
+            // Track Impression Once Per Session
+            if (!sessionStorage.getItem('fv_visited')) {
+                sessionStorage.setItem('fv_visited', 'true');
+                
+                h[today].v += 1;
+                saveHistory(h);
+
+                let l = getLifetime();
+                l.v += 1;
+                l.lastVisit = today;
+                saveLifetime(l);
+            }
+        }
+        initTracking();
+
+        function trackAndRedirect(appId) {
+            const today = getTodayStr();
+            
+            // Daily Update
+            let h = getHistory();
+            if (!h[today]) h[today] = { v: 0, c: 0, app1: 0, app2: 0, app3: 0 };
+            h[today].c += 1;
+            h[today][appId] += 1;
+            saveHistory(h);
+
+            // Lifetime Update
+            let l = getLifetime();
+            l.c += 1;
+            l[appId] += 1;
+            l.lastVisit = today;
+            saveLifetime(l);
+
+            if (document.getElementById('dashboardModal').classList.contains('active')) {
+                updateDashboardUI();
+            }
+
+            const url = URLS[appId];
+            if (url) {
+                // On mobile, redirect in the same tab to prevent popup blocker blocking the click
+                if (window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    window.location.href = url;
+                } else {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.rel = 'noopener noreferrer';
+                    a.target = '_blank';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            }
+        }
+
+        // ==========================================
+        // Dashboard Rendering Logic
+        // ==========================================
+
+        function getTopApp(a1, a2, a3) {
+            const m = Math.max(a1, a2, a3);
+            if (m === 0) return "None";
+            if (m === a1) return APP_NAMES.app1;
+            if (m === a2) return APP_NAMES.app2;
+            return APP_NAMES.app3;
+        }
+
+        function getPeriodStats(days) {
+            let h = getHistory();
+            let stats = { v: 0, c: 0, app1: 0, app2: 0, app3: 0, arr: [] };
+            
+            for (let i = days - 1; i >= 0; i--) {
+                let d = new Date();
+                d.setDate(d.getDate() - i);
+                let dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                
+                let dayData = h[dStr] || { v: 0, c: 0, app1: 0, app2: 0, app3: 0 };
+                stats.v += dayData.v;
+                stats.c += dayData.c;
+                stats.app1 += dayData.app1;
+                stats.app2 += dayData.app2;
+                stats.app3 += dayData.app3;
+                stats.arr.push({ dateStr: dStr, data: dayData });
+            }
+            return stats;
+        }
+
+        function renderChart(containerId, dataArr, keyName) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            const maxVal = Math.max(...dataArr.map(d => d.data[keyName]), 1);
+            
+            dataArr.forEach(d => {
+                const val = d.data[keyName];
+                const pct = Math.max((val / maxVal) * 100, 2); // Minimum 2% height for visibility
+                
+                // Format MM/DD
+                const parts = d.dateStr.split('-');
+                const lbl = `${parts[1]}/${parts[2]}`;
+                
+                container.innerHTML += `
+                    <div class="chart-bar-col">
+                        <div class="chart-bar" style="height: ${pct}%;">
+                            <div class="chart-val">${val}</div>
+                        </div>
+                        <div class="chart-label">${lbl}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateDashboardUI() {
+            const todayStr = getTodayStr();
+            const h = getHistory();
+            const l = getLifetime();
+            const today = h[todayStr] || { v: 0, c: 0, app1: 0, app2: 0, app3: 0 };
+            
+            // Header
+            document.getElementById('db-update-time').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+
+            // Today
+            const tdCtr = today.v > 0 ? ((today.c / today.v) * 100).toFixed(1) : 0;
+            document.getElementById('db-td-vis').textContent = today.v;
+            document.getElementById('db-td-clk').textContent = today.c;
+            document.getElementById('db-td-ctr').textContent = `${tdCtr}%`;
+            document.getElementById('db-td-top').textContent = getTopApp(today.app1, today.app2, today.app3);
+
+            // Weekly
+            const wk = getPeriodStats(7);
+            document.getElementById('db-wk-vis').textContent = wk.v;
+            document.getElementById('db-wk-clk').textContent = wk.c;
+            document.getElementById('db-wk-vis-avg').textContent = `Avg: ${Math.round(wk.v / 7)}/day`;
+            document.getElementById('db-wk-clk-avg').textContent = `Avg: ${Math.round(wk.c / 7)}/day`;
+            document.getElementById('db-wk-top').textContent = getTopApp(wk.app1, wk.app2, wk.app3);
+
+            // Monthly
+            const mo = getPeriodStats(30);
+            const moCtr = mo.v > 0 ? ((mo.c / mo.v) * 100).toFixed(1) : 0;
+            document.getElementById('db-mo-vis').textContent = mo.v;
+            document.getElementById('db-mo-clk').textContent = mo.c;
+            document.getElementById('db-mo-ctr').textContent = `${moCtr}%`;
+            document.getElementById('db-mo-top').textContent = getTopApp(mo.app1, mo.app2, mo.app3);
+
+            // Link Performance (Today)
+            document.getElementById('db-a1-td').textContent = today.app1;
+            document.getElementById('db-a2-td').textContent = today.app2;
+            document.getElementById('db-a3-td').textContent = today.app3;
+            // Link Performance (Week)
+            document.getElementById('db-a1-wk').textContent = wk.app1;
+            document.getElementById('db-a2-wk').textContent = wk.app2;
+            document.getElementById('db-a3-wk').textContent = wk.app3;
+            // Link Performance (Month)
+            document.getElementById('db-a1-mo').textContent = mo.app1;
+            document.getElementById('db-a2-mo').textContent = mo.app2;
+            document.getElementById('db-a3-mo').textContent = mo.app3;
+            // Link Performance (Lifetime)
+            document.getElementById('db-a1-lf').textContent = l.app1;
+            document.getElementById('db-a2-lf').textContent = l.app2;
+            document.getElementById('db-a3-lf').textContent = l.app3;
+
+            // Lifetime
+            const lfCtr = l.v > 0 ? ((l.c / l.v) * 100).toFixed(1) : 0;
+            document.getElementById('db-lf-vis').textContent = l.v;
+            document.getElementById('db-lf-clk').textContent = l.c;
+            document.getElementById('db-lf-ctr').textContent = `${lfCtr}%`;
+            document.getElementById('db-lf-top').textContent = getTopApp(l.app1, l.app2, l.app3);
+
+            // Charts
+            renderChart('chart-visitors', wk.arr, 'v');
+            renderChart('chart-clicks', wk.arr, 'c');
+
+            // System Info
+            document.getElementById('sys-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            document.getElementById('sys-first').textContent = l.firstVisit;
+            
+            // Basic Device/Browser Detection
+            const ua = navigator.userAgent;
+            let browser = "Unknown";
+            if(ua.includes("Firefox")) browser = "Firefox";
+            else if(ua.includes("SamsungBrowser")) browser = "Samsung Internet";
+            else if(ua.includes("Opera") || ua.includes("OPR")) browser = "Opera";
+            else if(ua.includes("Edge")) browser = "Edge";
+            else if(ua.includes("Chrome")) browser = "Chrome";
+            else if(ua.includes("Safari")) browser = "Safari";
+            
+            let device = "Desktop";
+            if(/Mobi|Android/i.test(ua)) device = "Mobile";
+            if(/Tablet|iPad/i.test(ua)) device = "Tablet";
+
+            document.getElementById('sys-browser').textContent = browser;
+            document.getElementById('sys-device').textContent = device;
+        }
+
+        function exportJSON() {
+            const data = {
+                generatedAt: new Date().toISOString(),
+                lifetimeAnalytics: getLifetime(),
+                historyAnalytics: getHistory()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `FriendVibe_Analytics_${getTodayStr()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function openDashboard() {
+            document.getElementById('dashboardModal').classList.add('active');
+            updateDashboardUI();
+        }
+
+        // Accordion FAQ & Animated Counters logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(faq => faq.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        const counters = document.querySelectorAll('.counter-value');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / 200;
+                        if (count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 15); }
+                        else { counter.innerText = target; }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => observer.observe(counter));
+
+        // Modals Logic
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        window.onclick = function(event) { if (event.target.classList.contains('modal-overlay')) event.target.classList.remove('active'); }
+
+        // Full Mobile Page Click Redirect via Overlay
+        if (window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            const mobileOverlay = document.getElementById('mobile-click-overlay');
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    trackAndRedirect('app1');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
